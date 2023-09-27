@@ -63,6 +63,11 @@ public class Sucursal {
 	}
 	
 	
+	@Override
+	public String toString () {
+		return getPk_SucursalID() + getNomSucursal() + getPaisSucursal();
+	}
+	
 	
 	
 }

@@ -5,10 +5,12 @@ import java.util.List;
 
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.domain.Sucursal;
 
-public class SucursalDTO extends Sucursal{
+public class SucursalDTO {
 
-	
-	private String tipusSurcursal;
+	private Integer pk_SucursalID;
+	private String nomSucursal;
+	private String paisSucursal;
+	private String tipusSucursal;
 	private static final List<String> paisosUE;
 	
 	
@@ -24,24 +26,65 @@ public class SucursalDTO extends Sucursal{
 	
 	
 	public SucursalDTO(String nomSucursal, String paisSucursal) {
-		this.tipusSurcursal = (paisosUE.contains(getPaisSucursal()))?"UE":"fora UE";
+		this.nomSucursal = nomSucursal;
+		this.paisSucursal = paisSucursal;
+		this.tipusSucursal = (getUE().contains(getPaisSucursal()))?"UE":"Fora UE";
+	}
+	
+	public SucursalDTO(Integer id, String nomSucursal, String paisSucursal) {
+		this.pk_SucursalID = id;
+		this.nomSucursal = nomSucursal;
+		this.paisSucursal = paisSucursal;
+		this.tipusSucursal = (getUE().contains(getPaisSucursal()))?"UE":"Fora UE";
 	}
 
 
 	public String getTipus(){
-		return this.tipusSurcursal;
+		return this.tipusSucursal;
 	}
-	
-	
-	/*Crec que aixo es mala idea 
-	 * 
-	 * public SucursalDTO tornaDTO (Sucursal sucursal) {
-		SucursalDTO dto;
-		
-		
-		
-		
-		return null;
-	}*/
+
+
+	public Integer getPk_SucursalID() {
+		return pk_SucursalID;
+	}
+
+
+	public String getNomSucursal() {
+		return nomSucursal;
+	}
+
+
+	public String getPaisSucursal() {
+		return paisSucursal;
+	}
+
+
+	public String getTipusSurcursal() {
+		return tipusSucursal;
+	}
+
+
+	public void setPk_SucursalID(Integer pk_SucursalID) {
+		this.pk_SucursalID = pk_SucursalID;
+	}
+
+
+	public void setNomSucursal(String nomSucursal) {
+		this.nomSucursal = nomSucursal;
+	}
+
+
+	public void setPaisSucursal(String paisSucursal) {
+		this.paisSucursal = paisSucursal;
+	}
+
+	public static List<String> getUE() {
+		return paisosUE;
+	}
+
+	@Override
+	public String toString () {
+		return getPk_SucursalID() + getNomSucursal() + getPaisSucursal() + getTipusSurcursal();
+	}
 	
 }

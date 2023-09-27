@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,13 +26,19 @@ public class SucursalController {
 	@Autowired
 	SucursalService service;
 
+	
+	@GetMapping("/")
+	public String patata () {
+		return "El sever funciona :)  👍";
+	}
 
 	@PostMapping("/add")
 	public ResponseEntity<SucursalDTO> add (@RequestParam String nom, @RequestParam String pais){
-		ResponseEntity<SucursalDTO> resposta;
-					
+		ResponseEntity<SucursalDTO> resposta;	
 		SucursalDTO sucursal = service.save(new SucursalDTO(nom, pais));
-
+		
+		
+		
 		resposta = new ResponseEntity<SucursalDTO>(sucursal, HttpStatus.CREATED);
 
 		return resposta;
@@ -88,6 +95,17 @@ public class SucursalController {
 		return resposta;
 	}
 
+	
+	@DeleteMapping("aTomarPorCulo")
+	@Query("ALTER TABLE db_example CHANGE pk_sucursalid pk_sucursalid INT(10)AUTO_INCREMENT PRIMARY KEY;")
+	public ResponseEntity<Object> borra() {
+		ResponseEntity<Object> resposta;
+		service.deleteAll();
+		
+		resposta = new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		
+		return resposta;
+	}
 
 
 }

@@ -6,20 +6,29 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.domain.Sucursal;
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.dto.SucursalDTO;
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.repository.SucursalRepository;
 
+import jakarta.persistence.EntityManager;
+
 @Service
 public class SucursalService { //Potser hauras d'afegir un repository pel DTO(ho dubto)
-
+	
+	EntityManager entityManager;
+	
+	
+	
 	@Autowired
 	SucursalRepository sucursalRepo;
 	
 	public SucursalDTO save(SucursalDTO dto) {
-		sucursalRepo.save(new Sucursal(dto.getNomSucursal(), dto.getPaisSucursal()));
+		Sucursal sucursal = sucursalRepo.save(new Sucursal(dto.getNomSucursal(), dto.getPaisSucursal()));
+		
+		dto.setPk_SucursalID(sucursal.getPk_SucursalID());
 		
 		return dto;
 	}
@@ -35,7 +44,7 @@ public class SucursalService { //Potser hauras d'afegir un repository pel DTO(ho
 		List<SucursalDTO> llistaDTO = new ArrayList<SucursalDTO>();
 		
 		for (Sucursal sucursal : llista) {
-			llistaDTO.add(new SucursalDTO(sucursal.getNomSucursal(), sucursal.getPaisSucursal()));
+			llistaDTO.add(new SucursalDTO(sucursal.getPk_SucursalID(), sucursal.getNomSucursal(), sucursal.getPaisSucursal()));
 		}
 		
 		return llistaDTO;
@@ -51,10 +60,18 @@ public class SucursalService { //Potser hauras d'afegir un repository pel DTO(ho
 		
 		if (sucursalMaybe.isPresent()) {
 			sucursal = sucursalMaybe.get();
-			dto = Optional.of(new SucursalDTO(sucursal.getNomSucursal(), sucursal.getPaisSucursal()));
+			dto = Optional.of(new SucursalDTO(sucursal.getPk_SucursalID(), sucursal.getNomSucursal(), sucursal.getPaisSucursal()));
 		}
 		
 		return dto;
+		
+	}
+	
+	
+	
+	
+	public void deleteAll() {
+		sucursalRepo.deleteAll();
 		
 	}
 	
