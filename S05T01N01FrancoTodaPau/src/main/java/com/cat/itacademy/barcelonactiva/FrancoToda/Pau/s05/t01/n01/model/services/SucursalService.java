@@ -6,21 +6,22 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.domain.Sucursal;
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.dto.SucursalDTO;
+import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.repository.EntityManagerRepository;
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.repository.SucursalRepository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 @Service
 public class SucursalService { //Potser hauras d'afegir un repository pel DTO(ho dubto)
 	
-	EntityManager entityManager;
 	
-	
+//	@Autowired
+//	EntityManagerRepository entityManager;
 	
 	@Autowired
 	SucursalRepository sucursalRepo;
@@ -72,7 +73,8 @@ public class SucursalService { //Potser hauras d'afegir un repository pel DTO(ho
 	
 	public void deleteAll() {
 		sucursalRepo.deleteAll();
-		
+//
+//		entityManager.truncateTable();
 	}
 	
 	

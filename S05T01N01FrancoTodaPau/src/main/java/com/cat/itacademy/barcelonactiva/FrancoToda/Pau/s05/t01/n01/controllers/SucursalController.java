@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.domain.Sucursal;
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.dto.SucursalDTO;
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.services.SucursalService;
 
@@ -31,6 +33,7 @@ public class SucursalController {
 	public String patata () {
 		return "El sever funciona :)  👍";
 	}
+	
 
 	@PostMapping("/add")
 	public ResponseEntity<SucursalDTO> add (@RequestParam String nom, @RequestParam String pais){
@@ -96,12 +99,11 @@ public class SucursalController {
 	}
 
 	
-	@DeleteMapping("aTomarPorCulo")
-	@Query("ALTER TABLE db_example CHANGE pk_sucursalid pk_sucursalid INT(10)AUTO_INCREMENT PRIMARY KEY;")
+	@GetMapping("aTomarPorCulo")
+	//@Query("TRUNCATE TABLE sucursal")
 	public ResponseEntity<Object> borra() {
 		ResponseEntity<Object> resposta;
 		service.deleteAll();
-		
 		resposta = new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		
 		return resposta;

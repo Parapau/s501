@@ -7,7 +7,7 @@ import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.domain.
 
 public class SucursalDTO {
 
-	private Integer pk_SucursalID;
+	private long pk_SucursalID;
 	private String nomSucursal;
 	private String paisSucursal;
 	private String tipusSucursal;
@@ -31,7 +31,7 @@ public class SucursalDTO {
 		this.tipusSucursal = (getUE().contains(getPaisSucursal()))?"UE":"Fora UE";
 	}
 	
-	public SucursalDTO(Integer id, String nomSucursal, String paisSucursal) {
+	public SucursalDTO(long id, String nomSucursal, String paisSucursal) {
 		this.pk_SucursalID = id;
 		this.nomSucursal = nomSucursal;
 		this.paisSucursal = paisSucursal;
@@ -44,7 +44,7 @@ public class SucursalDTO {
 	}
 
 
-	public Integer getPk_SucursalID() {
+	public long getPk_SucursalID() {
 		return pk_SucursalID;
 	}
 
@@ -64,7 +64,7 @@ public class SucursalDTO {
 	}
 
 
-	public void setPk_SucursalID(Integer pk_SucursalID) {
+	public void setPk_SucursalID(long pk_SucursalID) {
 		this.pk_SucursalID = pk_SucursalID;
 	}
 
