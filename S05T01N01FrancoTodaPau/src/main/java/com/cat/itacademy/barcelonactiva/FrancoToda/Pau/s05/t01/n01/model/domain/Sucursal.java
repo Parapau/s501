@@ -42,7 +42,11 @@ public class Sucursal {
 		this.paisSucursal = paisSucursal;
 	}
 
-
+	public Sucursal(long id, String nomSucursal, String paisSucursal) {
+		this.pk_SucursalID = id;
+		this.nomSucursal = nomSucursal;
+		this.paisSucursal = paisSucursal;
+	}
 
 	public long getPk_SucursalID() {
 		return pk_SucursalID;

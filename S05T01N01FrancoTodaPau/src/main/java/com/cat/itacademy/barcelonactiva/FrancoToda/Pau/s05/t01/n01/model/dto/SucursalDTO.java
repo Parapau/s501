@@ -10,7 +10,7 @@ public class SucursalDTO {
 	private long pk_SucursalID;
 	private String nomSucursal;
 	private String paisSucursal;
-	private String tipusSucursal;
+	public String tipusSucursal;//ha de ser public perque si no peta, perque els altres no els hi fa falta no en tinc ni idea pero l'html peta si aquest no es public JODER
 	private static final List<String> paisosUE;
 	
 	
@@ -84,7 +84,7 @@ public class SucursalDTO {
 
 	@Override
 	public String toString () {
-		return getPk_SucursalID() + getNomSucursal() + getPaisSucursal() + getTipusSurcursal();
+		return "id: " + getPk_SucursalID() + " nom: " + getNomSucursal() + " pais: "+ getPaisSucursal() + " tipus: " + getTipusSurcursal();
 	}
 	
 }
