@@ -1,9 +1,8 @@
 <fieldset>
 	<legend>Dades de la sucursal</legend>
-	<table>
-		<ul th:each="sucursal : ${llistaSucursal}">
+	<table the:each="sucursal= : ${sucursal}">
 		<tr>
-			<td><br><label th:text="'ID: ' + ${sucursal.pk_SucursalID}"> ID </label></td>
+			<td><label th:text="'ID: ' + ${sucursal.pk_SucursalID}"> ID </label></td>
 		</tr>
 		<tr>
 			<td><label th:text="'Nom: ' + ${sucursal.nomSucursal}"> nom </label></td>
@@ -14,7 +13,6 @@
 		<tr>
 			<td><label th:text="'Tipus: ' + ${sucursal.tipusSucursal}"> tipus </label></td>
 		</tr>
-		
-	</table>
 
+	</table>
 </fieldset>

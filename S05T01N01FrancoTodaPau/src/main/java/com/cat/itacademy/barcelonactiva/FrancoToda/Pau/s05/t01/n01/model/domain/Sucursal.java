@@ -19,10 +19,9 @@ public class Sucursal {
 //			allocationSize = 1,
 //			initialValue = 0)
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-			
-	private long pk_SucursalID;//Aixo segurament seria millor amb long pero l'enunciat diu Integer aixi que no ho cambíis
-
+	@GeneratedValue(strategy=GenerationType.IDENTITY)		
+	private long pk_SucursalID;
+	
 	@Column(name = "nom")
 	private String nomSucursal;
 

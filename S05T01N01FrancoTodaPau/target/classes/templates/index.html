@@ -1,0 +1,34 @@
+<form th:action="@{/actemele/index}" th:object="${index}" method="post">
+    <fieldset>
+        <legend>Benvingut al sistema de creacio de sucursals del banc agapaoawdbank</legend>
+        <table>
+        	<tr>
+                <td><label th:text="'1. Crear una nova sucursal'"> 1 </label></td>
+            </tr>
+            <tr>
+                <td><label th:text="'2. Veure una sucursal'"> 2 </label></td>
+            </tr>
+            <tr>
+                <td><label th:text="'3. Veure totes les sucursals'"> 3 </label></td>
+            </tr>
+            <tr>
+                <td><label th:text="'4. Actualitzar les dades d funa sucursal'"> 4 </label></td>
+            </tr>
+            <tr>
+                <td><label th:text="'5. Eliminar una sucursal'"> 5 </label></td>
+            </tr>
+            <tr>
+                <td><label th:text="'6. Eliminar totes les sucursals'"> 1 </label></td>
+            </tr>
+            <tr>
+                <td><label th:text="'Quina opcio vols?'">pais: </label></td>
+                <td><input type="text" th:field="*{pau ets subnormal}" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Submit</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

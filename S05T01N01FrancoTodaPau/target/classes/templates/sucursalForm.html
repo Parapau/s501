@@ -1,0 +1,24 @@
+<form th:action="@{/actemele/create}" th:object="${sucursal}" method="post">
+    <fieldset>
+        <legend>Dades de la sucursal</legend>
+        <table>
+            <!--  tr>
+                <td><label th:text=">ID: </label></td>
+                <td><input type="text" th:field="*{pk_SucursalID}" /></td>
+            </tr> --> 
+            <tr>
+                <td><label th:text="Nom">nom: </label></td>
+                <td><input type="text" th:field="*{nomSucursal}" /></td>
+            </tr>
+            <tr>
+                <td><label th:text="Pais">pais: </label></td>
+                <td><input type="text" th:field="*{paisSucursal}" /></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit">Registrar...</button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

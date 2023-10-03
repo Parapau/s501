@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.dto.SucursalDTO;
@@ -35,26 +37,81 @@ public class SucursalWebController {
 		model.addAttribute("mensaje","blablabla");
 
 
-		return "hola";
+		return "index";
 	}
 	
 	
-//	@GetMapping("/prrova")
-//	public ResourceBundleMessageSource b (){
-//		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-//	    messageSource.setBasename("messages");
-//	    return messageSource;
-//	}
-
-
-	@PostMapping("/add")
-	public String add (@RequestParam String nom, @RequestParam String pais, Model model){
-		SucursalDTO sucursal = service.save(new SucursalDTO(nom, pais));
-
-		model.addAttribute("mensaje", sucursal);
+	
+	@GetMapping("/add")
+    public String showUserForm(Model model){
+        model.addAttribute("sucursal", new SucursalDTO());
+        return "sucursalForm";
+    }
+	
+	
+	@GetMapping("/index")
+	public String index(String index) {//es string perque no peti si algu escriu algo al input
+		String retorn;
+	
+		switch(index.charAt(0)) {
+		case '1':
+			retorn = "add";
+			break;
+		case '2':
+			retorn = "getOne";
+			break;
+		case '3':
+			retorn = "getAll";
+			break;
+		case '4':
+			retorn = "update";
+			break;
+		case '5':
+			retorn = "delete";
+			break;
+		case '6':
+			retorn = "aTomarPorCulo";
+			break;
+		default:
+			retorn = "tonto";
+			break;
+		}
 		
-		return "hola";
+		
+		return retorn;
 	}
+	
+	@GetMapping("/menu")
+	public String menu() {
+				
+		return "index";
+	}
+	
+	
+	
+
+	@PostMapping("/create")
+	 public ModelAndView createUser(SucursalDTO sucursal) {
+        ModelAndView model = new ModelAndView();
+        model.addObject("sucursal", sucursal);
+        sucursal.tipejar();
+        
+        sucursal = service.save(sucursal);
+        
+        model.setViewName("sucursal"); 
+        
+        return model;
+    }
+	
+
+//	@PostMapping("/add")
+//	public String add (@RequestParam String nom, @RequestParam String pais, Model model){
+//		SucursalDTO sucursal = service.save(new SucursalDTO(nom, pais));
+//
+//		model.addAttribute("mensaje", sucursal);
+//		
+//		return "hola";
+//	}
 	
 	@GetMapping("/delete/{id}")
 	public String delete (@PathVariable("id") Integer id, Model model){

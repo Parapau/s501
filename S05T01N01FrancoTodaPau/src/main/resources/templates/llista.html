@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<title>si no tienes cuerda, acuerda</title>
-</head>
-<body>
-<p th:text="${mensaje}">
-  <ul th:each="sucursal : ${llistaSucursal}">
-    <li th:text="'id: ' + ${sucursal.pk_SucursalID}"></li>
-    <li th:text="'nom: ' + ${sucursal.nomSucursal}"></li>
-    <li th:text="'pais: ' + ${sucursal.paisSucursal}"></li>
-    <li th:text="'tipus: ' + ${sucursal.tipusSucursal}"></li>
-    
-  </ul>
-</body>
-</html>
+<fieldset>
+	<legend>Dades de la sucursal</legend>
+	<table>
+		<ul th:each="sucursal : ${llistaSucursal}">
+		<tr>
+			<td><br><label th:text="'ID: ' + ${sucursal.pk_SucursalID}"> ID </label></td>
+		</tr>
+		<tr>
+			<td><label th:text="'Nom: ' + ${sucursal.nomSucursal}"> nom </label></td>
+		</tr>
+		<tr>
+			<td><label th:text="'Pais: ' + ${sucursal.paisSucursal}"> pais </label></td>
+		</tr>
+		<tr>
+			<td><label th:text="'Tipus: ' + ${sucursal.tipusSucursal}"> tipus </label></td>
+		</tr>
+		
+	</table>
+
+</fieldset>
