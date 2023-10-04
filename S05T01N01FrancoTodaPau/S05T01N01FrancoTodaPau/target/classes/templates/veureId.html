@@ -1,0 +1,16 @@
+<form th:action="@{/actemele/getOne/{id}}" th:object={id} method="get">
+    <fieldset>
+        <legend>Quina id te la sucursal que vols veure?</legend>
+        <table>
+            <tr>
+                <td><label th:text="ID"></label></td>
+                <td><input type="text" th:field ="*{id}"/></td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="submit"></button>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+</form>

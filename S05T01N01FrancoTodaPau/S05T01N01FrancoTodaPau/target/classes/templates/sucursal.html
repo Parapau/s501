@@ -1,0 +1,18 @@
+<fieldset>
+	<legend>Dades de la sucursal</legend>
+	<table the:each="sucursal= : ${sucursal}">
+		<tr>
+			<td><label th:text="'ID: ' + ${sucursal.pk_SucursalID}"> ID </label></td>
+		</tr>
+		<tr>
+			<td><label th:text="'Nom: ' + ${sucursal.nomSucursal}"> nom </label></td>
+		</tr>
+		<tr>
+			<td><label th:text="'Pais: ' + ${sucursal.paisSucursal}"> pais </label></td>
+		</tr>
+		<tr>
+			<td><label th:text="'Tipus: ' + ${sucursal.tipusSucursal}"> tipus </label></td>
+		</tr>
+
+	</table>
+</fieldset>
