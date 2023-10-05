@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
+import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.dto.IdDTO;
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.dto.SucursalDTO;
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.services.SucursalService;
 
@@ -42,11 +43,7 @@ public class SucursalWebController {
 	
 	
 	
-	@GetMapping("/add")
-    public String showUserForm(Model model){
-        model.addAttribute("sucursal", new SucursalDTO());
-        return "sucursalForm";
-    }
+	
 	
 	
 	@GetMapping("/index")
@@ -89,6 +86,13 @@ public class SucursalWebController {
 	
 	
 	
+	@GetMapping("/add")
+    public String showUserForm(Model model){
+        model.addAttribute("sucursal", new SucursalDTO());
+        return "sucursalForm";
+    }
+	
+	
 
 	@PostMapping("/create")
 	 public ModelAndView createUser(SucursalDTO sucursal) {
@@ -104,6 +108,8 @@ public class SucursalWebController {
     }
 	
 
+	
+	
 //	@PostMapping("/add")
 //	public String add (@RequestParam String nom, @RequestParam String pais, Model model){
 //		SucursalDTO sucursal = service.save(new SucursalDTO(nom, pais));
@@ -137,26 +143,35 @@ public class SucursalWebController {
 			model.addAttribute("mensaje", "No hi ha cap sucursal ambn aquesta id😡");
 		}
 
-		
-
 		return "hola";
 	}
 
 	@GetMapping("/getOne/{id}")
 	public String getOne (Model model, @PathVariable("id") Integer id){
 		Optional<SucursalDTO> sucursal = service.findByid(id);
+		String retorn;
 		
-//		if (sucursal.isPresent()) {
-//			resposta = new ResponseEntity<SucursalDTO>(sucursal.get(), HttpStatus.OK);
-//		} else {
-//			resposta = new ResponseEntity<SucursalDTO>(HttpStatus.NOT_FOUND);
-//		}
-
 		
-		model.addAttribute("sucursal", sucursal.get());
+		if (sucursal.isPresent()) {
+			retorn = "sucursal";
+			model.addAttribute("sucursal", sucursal.get());
+			} else {
+			retorn = "tonto";
+		}
+	
 		
-		return "una";
+		return retorn;
 	}
+	
+	
+	@PostMapping("/pillaID")
+	public String pillala (IdDTO id, Model model) {
+		model.addAttribute("id", id);
+		
+		
+		return "putaID";
+	}
+	
 
 	@GetMapping("/getAll")
 	public String getAll (Model model){
@@ -166,7 +181,15 @@ public class SucursalWebController {
 		
 		return "llista";
 	}
-							
+	
+	
+			
+	@GetMapping("/getIdSee")
+	public String seeID (Model model) {
+		model.addAttribute("idDTO", new IdDTO());
+		
+		return "veureId";
+	}
 	
 	@GetMapping("aTomarPorCulo")
 //	@Query("TRUNCATE TABLE sucursal")

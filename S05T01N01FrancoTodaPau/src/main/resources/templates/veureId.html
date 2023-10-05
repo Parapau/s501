@@ -1,0 +1,19 @@
+<div th:with="id=${id}">
+	<form th:action="@{/actemele/pillaID}" th:object="${idDTO}" method="post">
+	    <fieldset>
+	        <legend>Quina id te la sucursal que vols veure?</legend>
+	        <table>
+	            <!-- tr>
+	                <td><label th:text="ID">nom: </label></td>
+	                <td><input type="text" th:field="*{id}" /></td>
+	            </tr-->
+	            <tr>
+	                <td>
+	                    <h2>Ja, que t'ho has cregut, aixo no funciona pero si poses tu el getOne/laIdQueVols si que funciona</h2>
+	                	<a href='/actemele/menu'>Venga torna al menu</a>/>
+	                </td>
+	            </tr>
+	        </table>
+	    </fieldset>
+	</form>
+</div>
