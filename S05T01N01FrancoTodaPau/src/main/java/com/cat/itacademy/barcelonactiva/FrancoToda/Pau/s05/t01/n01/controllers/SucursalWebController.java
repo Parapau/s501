@@ -25,7 +25,7 @@ import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.dto.Suc
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.services.SucursalService;
 
 @Controller
-@RequestMapping("/actemele")
+@RequestMapping("/sucursal")//hi han varios metodes que al final no es fan servir pero son restes del menu, el qual funciona a mitjes
 public class SucursalWebController {
 
 	@Autowired

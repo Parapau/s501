@@ -22,8 +22,9 @@ import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.dto.Suc
 import com.cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n01.model.services.SucursalService;
 
 @RestController
-@RequestMapping("/sucursal")
-public class SucursalController {
+@RequestMapping("/deprecat")
+@Deprecated
+public class SucursalController {//vell controlador
 
 	@Autowired
 	SucursalService service;
