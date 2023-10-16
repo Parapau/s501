@@ -3,6 +3,8 @@ package cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n02.model.dto;
 import java.util.Arrays;
 import java.util.List;
 
+import cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n02.model.domain.Flor;
+
 
 public class FlorDTO {
 //sucursal es otra forma de decir flor y por eso en algunos sitios aun pone sucursal
@@ -91,6 +93,9 @@ public class FlorDTO {
 
 	}
 
+	public Flor normalitzar() {
+		return new Flor(this.getNomSucursal(), this.getPaisSucursal());
+	}
 
 	@Override
 	public String toString () {

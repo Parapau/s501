@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,32 +38,33 @@ public class FlorController {
 
 	@PostMapping("/add")
 	public ResponseEntity<FlorDTO> add (@RequestParam String nom, @RequestParam String pais){
-		ResponseEntity<FlorDTO> resposta;	
-		FlorDTO sucursal = service.save(new FlorDTO(nom, pais));
+		ResponseEntity<FlorDTO> resposta;
+		FlorDTO flor = service.save(new FlorDTO(nom, pais));
 		
-		
-		
-		resposta = new ResponseEntity<FlorDTO>(sucursal, HttpStatus.CREATED);
+		resposta = new ResponseEntity<FlorDTO>(flor, HttpStatus.CREATED);
 
 		return resposta;
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<Object> delete (@PathVariable("id") Integer id){
+	public ResponseEntity<Object> delete (@PathVariable("id") long id){
 		ResponseEntity<Object> resposta;
-
-		service.deleteById(id);
+		if (!service.findByid(id).equals(null)) {
+			service.deleteById(id);
+			resposta = new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+		} else {
+			resposta = new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+		}
 		
-		resposta = new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 		
 		return resposta;
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<FlorDTO> update (@RequestParam Integer id, @RequestParam String nom, @RequestParam String pais){
+	public ResponseEntity<FlorDTO> update (@RequestParam long id, @RequestParam String nom, @RequestParam String pais){
 		ResponseEntity<FlorDTO> resposta;
 		FlorDTO sucursal;
-		Optional<FlorDTO> sucursalVella = service.findByid(id);
+		Optional<FlorDTO> sucursalVella = Optional.ofNullable(service.findByid(id));
 		
 		if (sucursalVella.isPresent()) {
 			sucursalVella.get().setNomSucursal(nom);
@@ -78,9 +80,9 @@ public class FlorController {
 	}
 
 	@GetMapping("/getOne/{id}")
-	public ResponseEntity<FlorDTO> getOne (@PathVariable("id") Integer id){
+	public ResponseEntity<FlorDTO> getOne (@PathVariable("id") long id){
 		ResponseEntity<FlorDTO> resposta = null;
-		Optional<FlorDTO> sucursal = service.findByid(id);
+		Optional<FlorDTO> sucursal = Optional.ofNullable(service.findByid(id));
 		
 		if (sucursal.isPresent()) {
 			resposta = new ResponseEntity<FlorDTO>(sucursal.get(), HttpStatus.OK);

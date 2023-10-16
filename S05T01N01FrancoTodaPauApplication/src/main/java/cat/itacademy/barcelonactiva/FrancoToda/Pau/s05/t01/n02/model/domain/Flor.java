@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n02.model.domain;
 
+import cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n02.model.dto.FlorDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -73,6 +74,9 @@ public class Flor {
 		this.paisSucursal = paisSucursal;
 	}
 
+	public FlorDTO doting() {
+		return new FlorDTO(this.getPk_SucursalID(), this.getNomSucursal(), this.getPaisSucursal());
+	}
 
 	@Override
 	public String toString () {

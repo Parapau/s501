@@ -32,8 +32,8 @@ public class FlorService {
 	}
 
 
-	public void deleteById(Integer id) {
-		sucursalRepo.deleteById(id);
+	public void deleteById(long id) {
+		sucursalRepo.deleteById((int) id);
 	}
 
 
@@ -58,16 +58,14 @@ public class FlorService {
 	}
 
 
-	public Optional<FlorDTO> findByid(Integer id) {
-		Optional<FlorDTO> dto = Optional.empty();
+	public FlorDTO findByid(long id) {
+		FlorDTO dto = null;
 		Optional<Flor> sucursalMaybe;
-		Flor sucursal;
-
-		sucursalMaybe = sucursalRepo.findById(id);
+		
+		sucursalMaybe = sucursalRepo.findById((int) id);
 
 		if (sucursalMaybe.isPresent()) {
-			sucursal = sucursalMaybe.get();
-			dto = Optional.of(new FlorDTO(sucursal.getPk_SucursalID(), sucursal.getNomSucursal(), sucursal.getPaisSucursal()));
+			dto = sucursalMaybe.get().doting();
 		}
 
 		return dto;
