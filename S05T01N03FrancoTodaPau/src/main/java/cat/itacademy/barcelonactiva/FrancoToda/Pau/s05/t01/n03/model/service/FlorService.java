@@ -12,6 +12,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestBodySpec;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
 import org.springframework.web.reactive.function.client.WebClient.UriSpec;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import cat.itacademy.barcelonactiva.FrancoToda.Pau.s05.t01.n03.model.DTO.FlorDTO;
 import reactor.core.publisher.Flux;
@@ -22,114 +23,95 @@ import reactor.core.publisher.Mono;
 @Service
 public class FlorService {
 
-
-	private final WebClient client = WebClient.create("http://localhost:9001");
-
-
-
-	public ResponseEntity<FlorDTO> add (FlorDTO flor){
+	private final static WebClient client = WebClient.create("http://localhost:9001");
 
 
 
-		return null;
+	public FlorDTO add (FlorDTO dto){
+		System.err.println("okokokokokokokokokokokokokokokok");
+		UriSpec<RequestBodySpec> uriSpec = client.method(HttpMethod.POST);
+		RequestBodySpec bodySpec = uriSpec.uri("/flor/add?" + dto.getNomSucursal() + "&" + dto.getPaisSucursal());
+		RequestHeadersSpec<?> headersSpec = bodySpec.bodyValue(dto);
+		FlorDTO retorn = headersSpec.retrieve().bodyToMono(FlorDTO.class).block();
+		
+		return retorn;
 	}
 
 
 
-	public ResponseEntity<FlorDTO> delteteById(Integer id) {
+	public ResponseEntity<Object> delteteById(long id) {
+		ResponseEntity<Object> retorn = null;
+		
+		UriSpec<RequestBodySpec> uriSpec = client.method(HttpMethod.DELETE);
 
-
-
-
-		return null;
+		RequestBodySpec bodySpec = uriSpec.uri("/flor/delete/" + id);
+		
+		retorn = bodySpec.retrieve().toEntity(Object.class).block();
+		
+		System.err.println(retorn.getStatusCode());
+		
+		return retorn;
 	}
 
 
-	public ResponseEntity<FlorDTO> update(FlorDTO dto) {
-
-
-
-		return null;
+	public FlorDTO update(FlorDTO dto) {
+		
+//		UriSpec<RequestBodySpec> uriSpec = client.method(HttpMethod.PUT);
+//
+//		RequestBodySpec bodySpec = uriSpec.uri("/flor/getOne?" + dto.getPk_SucursalID() + "&" + dto.getNomSucursal() + "&" + dto.getPaisSucursal());
+//
+//		RequestHeadersSpec<?> headersSpec = bodySpec.bodyValue("data");
+//
+//		FlorDTO resposta = headersSpec.retrieve().bodyToMono(FlorDTO.class).block();
+//
+//		return resposta;
+		
+		
+		UriSpec<RequestBodySpec> uriSpec = client.method(HttpMethod.PUT);
+		RequestBodySpec bodySpec = uriSpec.uri("/flor/update?id=" + dto.getPk_SucursalID() + "&nom=" + dto.getNomSucursal() + "&pais" + dto.getPaisSucursal());
+		RequestHeadersSpec<?> headersSpec = bodySpec.bodyValue(dto);
+		FlorDTO retorn = headersSpec.retrieve().bodyToMono(FlorDTO.class).block();
+		
+		return retorn;
 	}
 
 
-	public ResponseEntity<List<FlorDTO>> findAll(){
+	public List<FlorDTO> findAll(){
 
+		UriSpec<RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
 
+		RequestBodySpec bodySpec = uriSpec.uri("/flor/getAll");
 
-		return null;
+		RequestHeadersSpec<?> headersSpec = bodySpec.bodyValue("data");
+
+		List<FlorDTO> resposta = headersSpec.retrieve().bodyToFlux(FlorDTO.class).collectList().block();
+
+		return resposta;
 	}
 
 
 	public Optional<FlorDTO> findById(long id){
-		ResponseEntity<Optional<FlorDTO>> retorn = null;
 		
-		System.out.println("ei hola que tal");
-		
-		WebClient client = WebClient.create("http://localhost:9001");
-
 		UriSpec<RequestBodySpec> uriSpec = client.method(HttpMethod.GET);
 
 		RequestBodySpec bodySpec = uriSpec.uri("/flor/getOne/" + id);
 
 		RequestHeadersSpec<?> headersSpec = bodySpec.bodyValue("data");
 
-		System.err.println("MIRA AQUI PAU PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU");
+		Optional<FlorDTO> resposta = headersSpec.retrieve().bodyToMono(FlorDTO.class).blockOptional();
 
-		WebClient.ResponseSpec response = headersSpec.retrieve();
-		
-		System.err.println("BLABLABLABLABALBALBALBALBALBALBALBLABLABLABLAB");
-		
-		ResponseEntity<Optional> resposta = response.toEntity(Optional.class).block(); // TODO Aixo esta malametn 245% pero almenys no peta
-		
-		System.out.println(resposta.getBody().toString());
-		
-		System.err.println("akdnawkdjhakjwdhkajwdhkjawhdkjahwdkjh");
-		
-//		if (resposta.getStatusCode().equals(HttpStatus.OK)) {
-//			
-//			
-//			retorn = new ResponseEntity<Optional<FlorDTO>>(resposta.getBody() , HttpStatus.OK);
-//			
-//		} else if (resposta.getStatusCode().equals(HttpStatus.NOT_FOUND)) {
-//				
-//			retorn = new ResponseEntity<Optional<FlorDTO>>(HttpStatus.NOT_FOUND);
-//			
-//		} else {
-//			System.out.println("Si aico surt per consola el programador es gilipollaaaaAAAAAAAAAaaaaAAAAAs");
-//		}
-		
-		System.err.println("PAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAU");
-		
-		return resposta.getBody();
+		return resposta;
+
+
 	}
 
 
 
-	public ResponseEntity<Object> deleteAll() {
+	public void deleteAll() {
 
+		UriSpec<RequestBodySpec> uriSpec = client.method(HttpMethod.DELETE);
 
-
-		return null;
-	}
-
-
-
-
-
-
-
-
-	public Flux<List<FlorDTO>> getTweetsNonBlocking() {
-		
-		Flux<List> llista = WebClient.create().get().uri("/sucursal/getAll").retrieve().bodyToFlux(List.class);
-
-//		tweetFlux.subscribe(tweet -> log.info(tweet.toString()));
-//		log.info("Exiting NON-BLOCKING Controller!");
-//		return tweetFlux;
-		
-		//llista.fi	
-		 return null;
+		RequestBodySpec bodySpec = uriSpec.uri("/flor/aTomarPorCulo");
 	}
 
 }
